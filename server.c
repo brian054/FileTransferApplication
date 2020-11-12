@@ -78,20 +78,41 @@ int main(int argc, char *argv[]) {
     // We only get to this point from a successful client connection
 
     // Create a file
-    FILE *fopen()
-    // Write to that file
-
-    bzero(buffer, 256);
+    // Read in data and put into buffer
     n = read(newsockfd, buffer, 255);
-    if (n < 0) {
-        error("ERROR reading from socket");
+    char *file_name = buffer;
+    file_name[sizeof(file_name)] = '\0'; // there is no null terminating char for some reason
+                                            // so I add it here
+    printf("%s\n", file_name);
+
+    /*
+    char *new_file_path = strcat("test/output/", file_name);
+    FILE *new_file = fopen(new_file_path, "w");
+    bzero(buffer, 256);
+    */
+
+   /*
+    while (1) {
+        // Read in line from file and place into buffer
+        n = read(newsockfd, buffer, 255);
+        if (n < 0) {
+            error("ERROR reading from socket");
+        } else if (n == 0) {
+            // n == 0 signifies we have no more characters to read in 
+            break;
+        }
+        //printf("Here is the message: %s\n", buffer);
+
+        // Write whatever's in buffer into new file
+        fputs(buffer, new_file);
+        bzero(buffer, 256);
     }
-    printf("Here is the message: %s\n", buffer);
 
     n = write(newsockfd, "I got your message", 18);
     if (n < 0) {
         error("ERROR writing to socket");
     }
+    */
     /*
     Steps:
         Wait for connection from the client
