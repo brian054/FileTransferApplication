@@ -14,6 +14,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // put comments above in a read me bruh
 // Remove any naked literals
@@ -29,7 +30,8 @@ void error(char *s) {
 // Main
 int main(int argc, char *argv[]) {
 
-    int sockfd, newsockfd; 
+    printf("Server Started.... \n");
+    int sockfd, newsockfd, pid; 
     // port number is just a random number between 2000 and 65535
     int port_number = 2001; // Stores the port number on which the server accepts connections
     int client_address_length; // Stores size of address of client 
@@ -69,63 +71,81 @@ int main(int argc, char *argv[]) {
 
     // accept() causes the process to block until a client connects to server
     client_address_length = sizeof(client_address);
-    newsockfd = accept(sockfd, (struct sockaddr *) &client_address, 
-        (socklen_t *) &client_address_length);
-    if (newsockfd < 0) {
-        error("ERROR on accept");
-    }   
 
-    // We only get to this point from a successful client connection
+        while (1) {
+            newsockfd = accept(sockfd, (struct sockaddr *) &client_address, 
+                            (socklen_t *) &client_address_length);
+            if (newsockfd < 0) {
+                error("ERROR on accept");
+            }   
+            pid = fork();
+            if (pid < 0) {
+                error("ERROR on fork");
+            }
+            if (pid == 0) {
+                close(sockfd);
 
-    // Create a file
-    // Read in data and put into buffer
-    n = read(newsockfd, buffer, 255);
-    char *file_name = buffer;
-    file_name[sizeof(file_name)] = '\0'; // there is no null terminating char for some reason
-                                            // so I add it here
-    printf("%s\n", file_name);
+                // Do Stuff
 
-    /*
-    char *new_file_path = strcat("test/output/", file_name);
-    FILE *new_file = fopen(new_file_path, "w");
-    bzero(buffer, 256);
-    */
+                // We only get to this point from a successful client connection
+                printf("Client Connected.... \n");
 
-   /*
-    while (1) {
-        // Read in line from file and place into buffer
-        n = read(newsockfd, buffer, 255);
-        if (n < 0) {
-            error("ERROR reading from socket");
-        } else if (n == 0) {
-            // n == 0 signifies we have no more characters to read in 
-            break;
+                // Retrieve number of characters in file name
+                int file_size_characters = 0;
+                n = read(newsockfd, &file_size_characters, sizeof(file_size_characters));
+                if (n < 0) {
+                    error("ERROR reading from socket");
+                }
+                int converted_size = ntohl(file_size_characters);
+
+                // Read in data and put into buffer
+                char file_name_buffer[converted_size];
+                bzero(file_name_buffer, converted_size);
+                n = read(newsockfd, file_name_buffer, converted_size);
+
+                // To eliminate any other char's after .txt
+                file_name_buffer[converted_size] = '\0';
+
+                char *file_name = file_name_buffer;
+
+                // Remember file_name_buffer and file_name hold same value at this point
+
+                printf("Transferring %s to server....\n", file_name_buffer);
+                printf("Transferring %s to server....\n", file_name);
+
+                // Create a file path
+                char file_path[256] = "output/"; 
+                // Append file name to output path
+                strcat(file_path, file_name);
+                FILE *new_file = fopen(file_path, "w");
+                //printf("%s \n", file_name_buffer);
+
+                while (1) {
+                    // Read in line from file and place into buffer
+                    n = read(newsockfd, buffer, 255);
+                    //printf("%s \n", buffer);
+                    if (n < 0) {
+                        error("ERROR reading from socket");
+                    } else if (n == 0) {
+                        // n == 0 signifies we have no more characters to read in 
+                        break;
+                    }
+
+                    // Write whatever's in buffer into new file
+                    fputs(buffer, new_file);
+                    bzero(buffer, 256);
+                }
+
+                printf("File Received.... \n");
+                printf("Connection Ended.... \n");
+
+                // ---------------------------------------
+
+                exit(0);
+            } else {
+                close(newsockfd);
+            }
         }
-        //printf("Here is the message: %s\n", buffer);
-
-        // Write whatever's in buffer into new file
-        fputs(buffer, new_file);
-        bzero(buffer, 256);
-    }
-
-    n = write(newsockfd, "I got your message", 18);
-    if (n < 0) {
-        error("ERROR writing to socket");
-    }
-    */
-    /*
-    Steps:
-        Wait for connection from the client
-        Establish Connection
-        Wait for files from client
-        After disconnect from client, wait again until new client (aka while(1))
-
-        should also be able to change IP address of server with command line user input
-
-    */
-
-    
-
-
+    // We never get here
     return 0;
 }
