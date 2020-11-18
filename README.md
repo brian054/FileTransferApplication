@@ -32,7 +32,8 @@ Author: Brian Rowell
    from the client. 
     
    The server program uses a constant variable to set the IP address, therefore you can run this 
-   program on one machine, and the client program on another machine to send data between computers. 
+   program on one machine, and the client program on another machine given you are both connected
+   to the same network.
   
 ##  Client:
    The client program connects to the server, sends the file name to the server, and then sends 
@@ -40,8 +41,7 @@ Author: Brian Rowell
     
 ## Output:
    The file that was transferred goes into an output folder.
-    
-    
+       
 ## More Notes:
 ### Error: Connection Refused
 When running the client program, if you get an error message of "ERROR connecting: Connection refused" you most likely have the wrong Hostname/IP Address. To combat this issue, you can run the command 
@@ -57,9 +57,12 @@ To stop the program, simply press 'Ctrl' + 'C' (hold the ctrl key while pressing
 ### Where does the transferred file go?
 The transferred file is stored in a folder called output. This folder will be made in your current directory if it is not already made. Feel free to create the folder yourself, but my server program will do this for you if it is not present. 
 
+### What port number should I use?
+The server.c and client.c programs use port number 2001, so you do not have to worry about setting your own port number. If you would like to change
+the port number, feel free to change the variable port_number in both the server.c and client.c files.
+
 ### Testing
 To test this project I have provided some input files you can use. You can also come up with your own. 
-
 
 # Refereces:
 https://linux.die.net/man/3/basename : For extracting file name from path given by client
