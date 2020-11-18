@@ -1,5 +1,4 @@
-This is a random text
-file that I have made to test
+This is a random text that I have made to test
 my program that I wrote 
 
 You should not be reading this text
@@ -7,7 +6,6 @@ and if you are, it's basically a
 waste of time.
 
 I wonder how long covid will last.
-
 Will it ever end?
-
 Not sure, I guess we'll see.
+
