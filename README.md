@@ -57,6 +57,9 @@ To stop the program, simply press 'Ctrl' + 'C' (hold the ctrl key while pressing
 ### Where does the transferred file go?
 The transferred file is stored in a folder called output. This folder will be made in your current directory if it is not already made. Feel free to create the folder yourself, but my server program will do this for you if it is not present. 
 
+### Testing
+To test this project I have provided some input files you can use. You can also come up with your own. 
+
 
 # Refereces:
 https://linux.die.net/man/3/basename : For extracting file name from path given by client
