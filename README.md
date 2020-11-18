@@ -15,7 +15,7 @@ Author: Brian Rowell
   % ./runClient [hostname/IP address] [path to file]
 
   ## ./runClient takes two command line arguments
-  1.) Hostname/IP address: 
+  1.) Hostname/IP address: the IP address you will use to connect to the server
   
   2.) Path: the path to the file you would like to transfer
   
