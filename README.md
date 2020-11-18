@@ -60,11 +60,18 @@ The transferred file is stored in a folder called output. This folder will be ma
 
 # Refereces:
 https://linux.die.net/man/3/basename : For extracting file name from path given by client
+
 http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html : Socket Programming Tutorial
+
 https://www.tutorialspoint.com/c_standard_library/c_function_system.htm : Introduced me to system() call 
+
 https://linux.die.net/man/3/opendir : opendir() used to attempt to open output folder
+
 https://www.tutorialspoint.com/cprogramming/c_file_io.htm : Referenced for File I/O
+
 https://linux.die.net/man/3/htonl : For converting values between host and network byte order
+
 https://linux.die.net/man/3/ntohl : For converting values between host and network byte order
+
 https://linux.die.net/man/2/access : Used to check for file path existence
 
