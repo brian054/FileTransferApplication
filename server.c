@@ -132,7 +132,8 @@ int main(int argc, char *argv[]) {
                 if (!new_file) {
                     error("ERROR");
                 }
-
+                
+                // Copy file over from client to server
                 while (1) {
                     // Read in line from file and place into buffer
                     n = read(newsockfd, buffer, 255);
