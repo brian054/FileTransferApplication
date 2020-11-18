@@ -29,6 +29,9 @@ Author: Brian Rowell
 ###  Server:
     The server program is fairly straightforward. It waits for incoming connections from a client, receives the file name,
     creates the file and path, and then writes to that file what is receives from the client. 
+    
+    The server program uses a constant variable to set the IP address, therefore you can run this program on one machine, and the client
+    program on another machine to send data between computers. 
   
 ###  Client:
     The client program connects to the server, sends the file name to the server, and then sends the server the data in 
