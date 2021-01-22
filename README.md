@@ -1,6 +1,5 @@
 # File Transfer Application
 
-## Course: CS 371
 Author: Brian Rowell
 
 ###### Note: The use of a percent sign '%' is to denote a command you would type into your command line interface. Do not include this percent sign when running the command, it is simply a symbol that denotes a command.
